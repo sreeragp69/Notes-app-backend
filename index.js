@@ -1,20 +1,16 @@
 require("dotenv").config();
-
-const config = require("./config.json");
 const mongoose = require("mongoose");
-
 const User = require("./models/user_model");
 const Note = require("./models/note_model");
 
 mongoose
-  .connect(config.connectionString)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Database connected successfully"))
   .catch((err) => console.error("Database connection error:", err));
 
-express = require("express");
+const express = require("express");
 const cors = require("cors");
 const app = express();
-
 const jwt = require("jsonwebtoken");
 const { authenticationToken } = require("./utilities");
 app.use(express.json());
@@ -24,6 +20,7 @@ app.use(
     origin: "*",
   })
 );
+
 
 app.get("/", (req, res) => {
   res.json({ data: "Hello World!" });
